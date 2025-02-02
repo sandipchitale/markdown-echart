@@ -10,7 +10,7 @@ export function appMarkdownEchartsMarkedExtension(): MarkedExtension {
             codeToEchartOptions = JSON.stringify(JSON.parse(code));
           } catch (error) {
             try {
-              let optionsObject = eval(`(${code})`);
+              let optionsObject = JSON.parse(code.replace(/(\w+):/g, '"$1":') .replace(/'/g, '"'));
               codeToEchartOptions = JSON.stringify(optionsObject);
             } catch (ignore) {
               return false
